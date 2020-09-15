@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.opensingular:singular-ui-resources:war:1.8.0-RC2">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opensingular/singular-ui-resources/1.8.0-RC2/singular-ui-resources-1.8.0-RC2.war!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opensingular/singular-ui-resources/1.8.0-RC2/singular-ui-resources-1.8.0-RC2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opensingular/singular-ui-resources/1.8.0-RC2/singular-ui-resources-1.8.0-RC2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

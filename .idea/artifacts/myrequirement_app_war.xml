@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="myrequirement-app:war">
+    <output-path>$PROJECT_DIR$/myrequirement-app/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>myrequirement-app</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="myrequirement-module.war">
+      <element id="artifact" artifact-name="myrequirement-app:war exploded" />
+    </root>
+  </artifact>
+</component>

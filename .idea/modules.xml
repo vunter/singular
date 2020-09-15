@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/myrequirement.iml" filepath="$PROJECT_DIR$/myrequirement.iml" />
+      <module fileurl="file://$PROJECT_DIR$/myrequirement-app/myrequirement-app.iml" filepath="$PROJECT_DIR$/myrequirement-app/myrequirement-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/myrequirement-static-resources/myrequirement-static-resources.iml" filepath="$PROJECT_DIR$/myrequirement-static-resources/myrequirement-static-resources.iml" />
+    </modules>
+  </component>
+</project>
