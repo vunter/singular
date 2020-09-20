@@ -2,47 +2,23 @@ package com.mybusiness.myrequirementmodule.flow;
 
 import com.mybusiness.myrequirementmodule.MyRequirementModule;
 import org.opensingular.flow.core.DefinitionInfo;
-import org.opensingular.flow.core.ITaskDefinition;
 import org.opensingular.flow.core.FlowInstance;
+import org.opensingular.flow.core.ITaskDefinition;
 import org.opensingular.flow.core.defaults.PermissiveTaskAccessStrategy;
-
 import org.opensingular.requirement.commons.flow.builder.RequirementFlowBuilder;
 import org.opensingular.requirement.commons.flow.builder.RequirementFlowDefinition;
 import org.opensingular.requirement.commons.wicket.view.form.FormPage;
 
-
 import javax.annotation.Nonnull;
 
-import static com.mybusiness.myrequirementmodule.flow.MyRequirementFlow.MyRequirementTasks.ANALISAR;
-import static com.mybusiness.myrequirementmodule.flow.MyRequirementFlow.MyRequirementTasks.APROVADO;
-import static com.mybusiness.myrequirementmodule.flow.MyRequirementFlow.MyRequirementTasks.REPROVADO;
-import static com.mybusiness.myrequirementmodule.flow.MyRequirementFlow.MyRequirementTasks.SOLICITACAO_COM_PENDENCIAS;
+import static com.mybusiness.myrequirementmodule.flow.MyRequirementFlow.MyRequirementTasks.*;
 
 @DefinitionInfo("myrequirement")
 public class MyRequirementFlow extends RequirementFlowDefinition<FlowInstance> {
 
-    public enum MyRequirementTasks implements ITaskDefinition {
-
-        ANALISAR("Analisar"),
-        APROVADO("Aprovado"),
-        REPROVADO("Reprovado"),
-        SOLICITACAO_COM_PENDENCIAS("Solicitação com pendências");
-
-        private String taskName;
-
-        MyRequirementTasks(String taskName) {
-            this.taskName = taskName;
-        }
-
-        @Override
-        public String getName() {
-            return taskName;
-        }
-    }
-
     public MyRequirementFlow() {
         super(FlowInstance.class);
-        this.setName(MyRequirementModule.MYREQUIREMENT, "MyRequirement");
+        this.setName(MyRequirementModule.MYREQUIREMENT_CONST, "MyRequirement");
 
     }
 
@@ -66,6 +42,25 @@ public class MyRequirementFlow extends RequirementFlowDefinition<FlowInstance> {
 
         flow.from(SOLICITACAO_COM_PENDENCIAS).go("Concluir Pendência", ANALISAR);
 
+    }
+
+    public enum MyRequirementTasks implements ITaskDefinition {
+
+        ANALISAR("Analisar"),
+        APROVADO("Aprovado"),
+        REPROVADO("Reprovado"),
+        SOLICITACAO_COM_PENDENCIAS("Solicitação com pendências");
+
+        private final String taskName;
+
+        MyRequirementTasks(String taskName) {
+            this.taskName = taskName;
+        }
+
+        @Override
+        public String getName() {
+            return taskName;
+        }
     }
 
 

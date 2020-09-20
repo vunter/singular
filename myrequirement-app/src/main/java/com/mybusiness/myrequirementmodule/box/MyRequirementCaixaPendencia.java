@@ -1,7 +1,6 @@
 package com.mybusiness.myrequirementmodule.box;
 
 
-import static com.mybusiness.myrequirementmodule.flow.MyRequirementFlow.MyRequirementTasks.SOLICITACAO_COM_PENDENCIAS;
 import org.opensingular.lib.wicket.util.resource.DefaultIcons;
 import org.opensingular.requirement.commons.box.BoxItemData;
 import org.opensingular.requirement.commons.box.action.AbstractURLPopupBoxItemAction;
@@ -18,51 +17,53 @@ import org.opensingular.requirement.module.workspace.BoxDefinition;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mybusiness.myrequirementmodule.flow.MyRequirementFlow.MyRequirementTasks.SOLICITACAO_COM_PENDENCIAS;
+
 public class MyRequirementCaixaPendencia implements BoxDefinition {
 
-        @Override
-        public boolean appliesTo(IServerContext context) {
-            return PServerContext.REQUIREMENT.isSameContext(context);
-        }
+    @Override
+    public boolean appliesTo(IServerContext context) {
+        return PServerContext.REQUIREMENT.isSameContext(context);
+    }
 
-        @Override
-        public ItemBox build(IServerContext context) {
-            final ItemBox caixaEntrada = new ItemBox();
-            caixaEntrada.setName("Pendências");
-            caixaEntrada.setDescription("Caixa de Pendências");
-            caixaEntrada.setIcone(DefaultIcons.WARNING);
-            return caixaEntrada;
-        }
+    @Override
+    public ItemBox build(IServerContext context) {
+        final ItemBox caixaEntrada = new ItemBox();
+        caixaEntrada.setName("Pendências");
+        caixaEntrada.setDescription("Caixa de Pendências");
+        caixaEntrada.setIcone(DefaultIcons.WARNING);
+        return caixaEntrada;
+    }
 
-        @Override
-        public BoxItemDataProvider getDataProvider() {
+    @Override
+    public BoxItemDataProvider getDataProvider() {
 
         ActionProviderBuilder actionProvider = new ActionProviderBuilder()
-            .addCustomActions((boxInfo, line, filter, list) -> list.addAction(new CumprirDiligenciaAction(line)))
-            .addViewAction()
-            .addHistoryAction();
+                .addCustomActions((boxInfo, line, filter, list) -> list.addAction(new CumprirDiligenciaAction(line)))
+                .addViewAction()
+                .addHistoryAction();
 
 
-            return new RequirementBoxItemDataProvider(Boolean.TRUE, actionProvider)
+        return new RequirementBoxItemDataProvider(Boolean.TRUE, actionProvider)
                 .addTask(SOLICITACAO_COM_PENDENCIAS.getName());
-        }
+    }
 
-        @Override
-        public List<DatatableField> getDatatableFields() {
-            List<DatatableField> fields = new ArrayList<>();
-            fields.add(DatatableField.of("NÚMERO", "codRequirement"));
-            fields.add(DatatableField.of("Descrição", "description"));
-            fields.add(DatatableField.of("Dt. Entrada", "processBeginDate"));
-            fields.add(DatatableField.of("Situação", "situation"));
-            fields.add(DatatableField.of("Dt. Situação", "situationBeginDate"));
-            return fields;
-        }
+    @Override
+    public List<DatatableField> getDatatableFields() {
+        List<DatatableField> fields = new ArrayList<>();
+        fields.add(DatatableField.of("NÚMERO", "codRequirement"));
+        fields.add(DatatableField.of("Descrição", "description"));
+        fields.add(DatatableField.of("Dt. Entrada", "processBeginDate"));
+        fields.add(DatatableField.of("Situação", "situation"));
+        fields.add(DatatableField.of("Dt. Situação", "situationBeginDate"));
+        return fields;
+    }
 
-        public static class CumprirDiligenciaAction extends AbstractURLPopupBoxItemAction {
-            public CumprirDiligenciaAction(BoxItemData line) {
-                super("diligencia", "Cumprir pendência", DefaultIcons.PENCIL_SQUARE,
+    public static class CumprirDiligenciaAction extends AbstractURLPopupBoxItemAction {
+        public CumprirDiligenciaAction(BoxItemData line) {
+            super("diligencia", "Cumprir pendência", DefaultIcons.PENCIL_SQUARE,
                     FormAction.FORM_FILL_WITH_ANALYSIS, line);
-            }
         }
+    }
 
 }

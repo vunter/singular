@@ -1,20 +1,25 @@
 package com.mybusiness.myrequirementmodule.spring.service;
 
 
-import org.opensingular.form.type.country.brazil.STypeAddress;
+import com.mybusiness.myrequirementmodule.model.dto.CEPDto;
+import com.mybusiness.myrequirementmodule.spring.service.cep.CEPService;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+
+import javax.inject.Inject;
 
 @Service
 public class EnderecoCustomService {
 
+    @Inject
+    private CEPService cepService;
 
+    public CEPDto getByCep(String cep) {
+        if (!cep.trim().isEmpty()) {
+            String cepTratado = cep.replace(".", "").replace("-", "");
 
-    public STypeAddress getByCep(String cep) {
-        cep.replace(".", "").replace("-", "");
-        String uri = "http://viacep.com.br/ws/" + cep + "/json/";
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(uri, STypeAddress.class);
+            return cepService.getEndereco(cepTratado);
+        }
+        return new CEPDto();
     }
 
 }
