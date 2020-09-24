@@ -1,5 +1,6 @@
 package com.mybusiness.myrequirementmodule;
 
+import com.mybusiness.myrequirementmodule.box.BoxExercicio;
 import com.mybusiness.myrequirementmodule.box.MyRequirementCaixaPendencia;
 import com.mybusiness.myrequirementmodule.flow.MyRequirementFlow;
 import com.mybusiness.myrequirementmodule.form.MyRequirementForm;
@@ -18,7 +19,6 @@ public class MyRequirementModule implements SingularModule {
 
     public static final String MYREQUIREMENT_CONST = "MYREQUIREMENT";
     private final SingularRequirement myrequirement = new FormFlowSingularRequirement("MyRequirement", MyRequirementForm.class, MyRequirementFlow.class);
-    private final SingularRequirement myrequirement2 = new FormFlowSingularRequirement("MyRequirement2", STypeAddress.class, MyRequirementFlow.class);
 
     @Override
     public String abbreviation() {
@@ -33,8 +33,7 @@ public class MyRequirementModule implements SingularModule {
     @Override
     public void requirements(RequirementConfiguration config) {
         config
-                .addRequirement(myrequirement)
-                .addRequirement(myrequirement2);
+                .addRequirement(myrequirement);
     }
 
     @Override
@@ -42,7 +41,7 @@ public class MyRequirementModule implements SingularModule {
         config
                 .addBox(new DefaultDraftbox()).newFor(myrequirement)
                 .addBox(new MyRequirementCaixaPendencia())
-                .addBox(new MyRequirementCaixaPendencia())
+                .addBox(new BoxExercicio())
                 .addBox(new DefaultInbox())
                 .addBox(new DefaultOngoingbox())
                 .addBox(new DefaultDonebox());

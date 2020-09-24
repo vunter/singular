@@ -1,9 +1,7 @@
 package com.mybusiness.myrequirementmodule.flow;
 
 import com.mybusiness.myrequirementmodule.MyRequirementModule;
-import org.opensingular.flow.core.DefinitionInfo;
-import org.opensingular.flow.core.FlowInstance;
-import org.opensingular.flow.core.ITaskDefinition;
+import org.opensingular.flow.core.*;
 import org.opensingular.flow.core.defaults.PermissiveTaskAccessStrategy;
 import org.opensingular.requirement.commons.flow.builder.RequirementFlowBuilder;
 import org.opensingular.requirement.commons.flow.builder.RequirementFlowDefinition;
@@ -31,6 +29,7 @@ public class MyRequirementFlow extends RequirementFlowDefinition<FlowInstance> {
         flow.addHumanTask(SOLICITACAO_COM_PENDENCIAS).uiAccess(new PermissiveTaskAccessStrategy())
                 .withExecutionPage(FormPage.class);
 
+        flow.addHumanTask(SOLICITACAO_ADMIN).uiAccess(new PermissiveTaskAccessStrategy()).withExecutionPage(FormPage.class);
         flow.addEndTask(REPROVADO);
         flow.addEndTask(APROVADO);
 
@@ -41,6 +40,7 @@ public class MyRequirementFlow extends RequirementFlowDefinition<FlowInstance> {
         flow.from(ANALISAR).go("Reprovar", REPROVADO);
 
         flow.from(SOLICITACAO_COM_PENDENCIAS).go("Concluir Pendência", ANALISAR);
+        flow.from(SOLICITACAO_ADMIN).go("Concluir Admin", ANALISAR);
 
     }
 
@@ -49,7 +49,8 @@ public class MyRequirementFlow extends RequirementFlowDefinition<FlowInstance> {
         ANALISAR("Analisar"),
         APROVADO("Aprovado"),
         REPROVADO("Reprovado"),
-        SOLICITACAO_COM_PENDENCIAS("Solicitação com pendências");
+        SOLICITACAO_COM_PENDENCIAS("Solicitação com pendências"),
+        SOLICITACAO_ADMIN("Solicitação com Administrador");
 
         private final String taskName;
 
