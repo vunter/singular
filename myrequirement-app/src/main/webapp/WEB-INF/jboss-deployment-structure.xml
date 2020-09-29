@@ -5,7 +5,7 @@
         </dependencies>
         <exclude-subsystems>
             <subsystem name="weld"/>
-            <subsystem name="jsf" />
+            <subsystem name="jsf"/>
         </exclude-subsystems>
     </deployment>
 </jboss-deployment-structure>

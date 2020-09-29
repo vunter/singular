@@ -1,7 +1,9 @@
 package com.mybusiness.myrequirementmodule.flow;
 
 import com.mybusiness.myrequirementmodule.MyRequirementModule;
-import org.opensingular.flow.core.*;
+import org.opensingular.flow.core.DefinitionInfo;
+import org.opensingular.flow.core.FlowInstance;
+import org.opensingular.flow.core.ITaskDefinition;
 import org.opensingular.flow.core.defaults.PermissiveTaskAccessStrategy;
 import org.opensingular.requirement.commons.flow.builder.RequirementFlowBuilder;
 import org.opensingular.requirement.commons.flow.builder.RequirementFlowDefinition;
@@ -38,6 +40,7 @@ public class MyRequirementFlow extends RequirementFlowDefinition<FlowInstance> {
         flow.from(ANALISAR).go("Solicitar ajustes", SOLICITACAO_COM_PENDENCIAS);
         flow.from(ANALISAR).go("Aprovar", APROVADO);
         flow.from(ANALISAR).go("Reprovar", REPROVADO);
+        flow.from(ANALISAR).go("Passar para admin", SOLICITACAO_ADMIN);
 
         flow.from(SOLICITACAO_COM_PENDENCIAS).go("Concluir Pendência", ANALISAR);
         flow.from(SOLICITACAO_ADMIN).go("Concluir Admin", ANALISAR);

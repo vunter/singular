@@ -1,19 +1,19 @@
-package com.mybusiness.myrequirementmodule.form;
+package com.mybusiness.myrequirementmodule.form.pessoa;
 
 import com.mybusiness.myrequirementmodule.model.dto.CEPDto;
 import org.opensingular.form.SIComposite;
 import org.opensingular.form.type.core.SIString;
 
-public class MyRequirementInstance extends SIComposite {
+public class CadastroPessoaInstance extends SIComposite {
 
 
-    public MyRequirementInstance() {
+    public CadastroPessoaInstance() {
         //Empty constructor
     }
 
     @Override
-    public MyRequirementForm getType() {
-        return (MyRequirementForm) super.getType();
+    public CadastroPessoaForm getType() {
+        return (CadastroPessoaForm) super.getType();
     }
 
     public SIString getLogradouro() {

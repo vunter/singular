@@ -10,9 +10,9 @@ public class MyRequirementStudioConfig implements StudioConfig {
     @Override
     public StudioMenu getAppMenu() {
         return StudioMenu.Builder.newPortalMenu()
-            .addHTTPEndpoint(DefaultIcons.GLOBE, "Requerimento", "/requirement")
-            .addHTTPEndpoint(DefaultIcons.COMMENT, "Análise", "/worklist")
-            .getStudioMenu();
+                .addHTTPEndpoint(DefaultIcons.GLOBE, "Requerimento", "/requirement")
+                .addHTTPEndpoint(DefaultIcons.COMMENT, "Análise", "/worklist")
+                .getStudioMenu();
     }
 
 }

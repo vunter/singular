@@ -1,19 +1,16 @@
-package com.mybusiness.myrequirementmodule.form;
+package com.mybusiness.myrequirementmodule.form.myrequirement;
 
-import com.mybusiness.myrequirementmodule.model.dto.CEPDto;
-import com.mybusiness.myrequirementmodule.model.stypes.STypePessoa;
-import com.mybusiness.myrequirementmodule.spring.service.EnderecoCustomService;
-import org.opensingular.form.*;
-import org.opensingular.form.type.core.SIString;
+import com.mybusiness.myrequirementmodule.form.MyRequirementPackage;
+import org.opensingular.form.SInfoType;
+import org.opensingular.form.SInstance;
+import org.opensingular.form.STypeComposite;
+import org.opensingular.form.TypeBuilder;
 import org.opensingular.form.type.core.STypeBoolean;
 import org.opensingular.form.type.core.STypeString;
-import org.opensingular.form.type.country.brazil.STypeAddress;
 import org.opensingular.form.view.SViewByBlock;
 
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 import static org.opensingular.form.util.SingularPredicates.typeValueIsTrueAndNotNull;
@@ -24,16 +21,10 @@ public class MyRequirementForm extends STypeComposite<MyRequirementInstance> {
     public STypeBoolean radioBox;
     public STypeString descriptionTextArea;
     public STypeString typeSelection;
-    public STypeAddress endereco;
     public STypeString dropDown;
     public STypeString radioButton;
     public STypeBoolean showRadioButton;
     public STypeString autocompleteField;
-    public STypePessoa dadosPessoa;
-
-
-    @Inject
-    private EnderecoCustomService enderecoCustomService;
 
     public MyRequirementForm() {
         super(MyRequirementInstance.class);
@@ -52,65 +43,75 @@ public class MyRequirementForm extends STypeComposite<MyRequirementInstance> {
         asAtr().displayString("Nova Solicitação");
 
         radioBox = addFieldBoolean("radioBox");
-        radioBox.withRadioView("Sim", "Não")
-                .asAtr().required().label("Novo Usuário?").asAtrAnnotation().setAnnotated()
-                .asAtrBootstrap().colPreference(2);
-
         typeSelection = addFieldString("typeSelection");
-        typeSelection.selectionOf(Profissoes.valuesOfDescricao()).asAtr().label("Profissão").required(true);
-        typeSelection.asAtr().dependsOn(radioBox).exists(isNewUser()).asAtrAnnotation().setAnnotated()
-                .asAtrBootstrap().colPreference(3);
-
         descriptionTextArea = addFieldString("descriptionTextArea");
-        descriptionTextArea
-                .asAtr().required().label("Descrição")
-                .asAtrBootstrap().colPreference(12);
+        dropDown = addFieldString("dropDown");
+        showRadioButton = addFieldBoolean("showRadioButton");
+        radioButton = addFieldString("radioButton");
+        autocompleteField = addFieldString("autocompleteField");
+
+
+        radioBox.withRadioView("Sim", "Não")
+                .asAtr()
+                .required()
+                .label("Novo Usuário?")
+                .asAtrAnnotation()
+                .setAnnotated()
+                .asAtrBootstrap()
+                .colPreference(2);
+
+        typeSelection.selectionOf(Profissoes.valuesOfDescricao())
+                .asAtr().label("Profissão")
+                .required()
+                .dependsOn(radioBox)
+                .exists(isNewUser())
+                .asAtrAnnotation()
+                .setAnnotated()
+                .asAtrBootstrap()
+                .colPreference(3);
+
+
         descriptionTextArea
                 .withTextAreaView(sViewTextArea -> sViewTextArea.setLines(4))
-                .asAtr().maxLength(4000).asAtrAnnotation().setAnnotated();
+                .asAtr()
+                .maxLength(4000)
+                .required()
+                .label("Descrição")
+                .asAtrBootstrap()
+                .colPreference(12)
+                .asAtrAnnotation().setAnnotated();
 
-        dropDown = addFieldString("dropDown");
-        dropDown.selectionOf(createOptions(5));
-        dropDown.asAtr().label("Drop Down exercicio 1");
+        dropDown.selectionOf(createOptions(5))
+                .asAtr()
+                .label("Grau Estudantil");
 
-        showRadioButton = addFieldBoolean("showRadioButton");
-        showRadioButton.withRadioView("Sim", "Não").asAtr().required().label("Mostrar Opções Radio Button");
+        showRadioButton.withRadioView("Sim", "Não")
+                .asAtr()
+                .required()
+                .label("Tem experiência?");
 
-        radioButton = addFieldString("radioButton");
-        radioButton.withRadioView().selectionOf(createOptions(5)).asAtr().label("Radio Button exercicio 2");
-        radioButton.asAtr().dependsOn(showRadioButton).visible(typeValueIsTrueAndNotNull(showRadioButton));
+        radioButton.withRadioView()
+                .selectionOf(createOptions(5))
+                .asAtr()
+                .label("Anos de experiência")
+                .dependsOn(showRadioButton)
+                .visible(typeValueIsTrueAndNotNull(showRadioButton));
 
-        autocompleteField = addFieldString("autocompleteField");
-        autocompleteField.autocompleteOf(createOptions(5)).asAtr().label("Autocomplete: ");
+        autocompleteField.autocompleteOf(createOptions(15))
+                .asAtr()
+                .label("Tecnologias conhecidas: ");
 
-        endereco = addField("endereco", STypeAddress.class);
-        endereco.withUpdateListener(this::pesquisarCEP).asAtr().dependsOn(endereco.cep);
-        dadosPessoa = addField("dadosPessoa", STypePessoa.class);
         this.withView(new SViewByBlock(), block ->
                 block.newBlock("Requerimento")
                         .add(radioBox)
                         .add(typeSelection)
                         .add(descriptionTextArea)
-                        .newBlock("Exercicios")
+                        .newBlock("Infos Adicionais")
                         .add(dropDown)
                         .add(showRadioButton)
                         .add(radioButton)
                         .add(autocompleteField)
-                        .newBlock("Endereço")
-                        .add(endereco)
-                        .newBlock("Dados Pessoais")
-                        .add(dadosPessoa)
         );
-    }
-
-    private void pesquisarCEP(SIComposite instance) {
-        final Optional<SIString> cepField = instance.findNearest(endereco.cep);
-        cepField.ifPresent(c -> {
-
-            CEPDto ender = enderecoCustomService.getByCep(c.getValue());
-            instance.findNearest(MyRequirementForm.class).ifPresent(s -> s.fillInstance(ender));
-
-        });
     }
 
     private Predicate<SInstance> isNewUser() {
@@ -130,12 +131,10 @@ public class MyRequirementForm extends STypeComposite<MyRequirementInstance> {
                 .append(radioBox, that.radioBox)
                 .append(descriptionTextArea, that.descriptionTextArea)
                 .append(typeSelection, that.typeSelection)
-                .append(endereco, that.endereco)
                 .append(dropDown, that.dropDown)
                 .append(radioButton, that.radioButton)
                 .append(showRadioButton, that.showRadioButton)
                 .append(autocompleteField, that.autocompleteField)
-                .append(enderecoCustomService, that.enderecoCustomService)
                 .isEquals();
     }
 
@@ -146,12 +145,10 @@ public class MyRequirementForm extends STypeComposite<MyRequirementInstance> {
                 .append(radioBox)
                 .append(descriptionTextArea)
                 .append(typeSelection)
-                .append(endereco)
                 .append(dropDown)
                 .append(radioButton)
                 .append(showRadioButton)
                 .append(autocompleteField)
-                .append(enderecoCustomService)
                 .toHashCode();
     }
 

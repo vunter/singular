@@ -1,13 +1,15 @@
 <#import "/spring.ftl" as spring>
 <!DOCTYPE html>
-<!--[if IE 8]><html lang="en" class="ie8 no-js"><![endif]-->
-<!--[if IE 9]><html lang="en" class="ie9 no-js"><![endif]-->
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js"><![endif]-->
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js"><![endif]-->
 <!--[if !IE]><!-->
 <html class="no-js" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>
-    Singular | Login
+        Singular | Login
     </title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -45,12 +47,12 @@
     <form action="<@spring.url '/login'/>" method="POST" class="login-form">
         <h3 class="form-title">Login</h3>
 
-    <#if RequestParameters.error??>
-        <div class="alert alert-danger">
-            <button class="close" data-close="alert"></button>
-            <span>Credencias inválidas</span>
-        </div>
-    </#if>
+        <#if RequestParameters.error??>
+            <div class="alert alert-danger">
+                <button class="close" data-close="alert"></button>
+                <span>Credencias inválidas</span>
+            </div>
+        </#if>
         <div class="form-group">
 
             <label class="control-label visible-ie8 visible-ie9">Usuário</label>

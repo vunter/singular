@@ -1,6 +1,5 @@
 package com.mybusiness.myrequirementmodule.flow;
 
-import com.mybusiness.myrequirementmodule.flow.MyRequirementFlow;
 import org.junit.Test;
 import org.opensingular.requirement.commons.test.flow.AbstractFlowRenderTest;
 

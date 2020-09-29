@@ -16,9 +16,9 @@ import org.opensingular.requirement.module.workspace.BoxDefinition;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mybusiness.myrequirementmodule.flow.MyRequirementFlow.MyRequirementTasks.SOLICITACAO_ADMIN;
+import static com.mybusiness.myrequirementmodule.flow.CadastroPessoaFlow.CadastroPessoaTasks.SOLICITACAO_ADMIN;
 
-public class BoxExercicio implements BoxDefinition {
+public class CadastroPessoaCaixa implements BoxDefinition {
     @Override
     public boolean appliesTo(IServerContext iServerContext) {
         return PServerContext.REQUIREMENT.isSameContext(iServerContext);
@@ -36,7 +36,7 @@ public class BoxExercicio implements BoxDefinition {
     @Override
     public BoxItemDataProvider getDataProvider() {
 
-                 ActionProviderBuilder actionProvider = new ActionProviderBuilder()
+        ActionProviderBuilder actionProvider = new ActionProviderBuilder()
                 .addCustomActions((boxInfo, line, filter, list) -> list.addAction(new AcionarAdmin(line)))
                 .addViewAction()
                 .addHistoryAction();
