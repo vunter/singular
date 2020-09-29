@@ -28,7 +28,7 @@ Após subir o projeto, acesse o https://localhost:8443/ e
 					<li>Campo textarea, para textos grandes</li>
 					<li>DropDown comum</li>
 					<li>Autocomplete</li>
-				<ul>
+				</ul>
 -> Formulário "CadastroPessoa":
 	 			<ul>
 					<li>1 Custom SType para dados pessoais</li>
@@ -38,7 +38,7 @@ Após subir o projeto, acesse o https://localhost:8443/ e
 					<li>Campo com updateListener para preenchimento automático da idade</li>
 					<li>1 STypeAddress</li>
 					<li>Campo com updateListener para busca de dados com ViaCEP</li>
-				<ul>
+				</ul>
 -> Custom Service com integração à serviços de busca de endereço por CEP
 -> Caixa dinâmica para listagem de cadastros com necessidade de aprovação do ADMIN
 -> Etapas de análises gerenciais, com possibilidade de anotação.
